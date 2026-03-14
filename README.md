@@ -70,10 +70,7 @@ design**.
 -   Create / update / delete tasks
 -   Task workflow:
 
-```{=html}
-<!-- -->
-```
-    Pending → Started → Completed
+**Pending → Started → Completed**
 
 ### Team Collaboration
 
