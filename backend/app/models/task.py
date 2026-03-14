@@ -21,4 +21,8 @@ class Task(Base):
     org_id = Column(String, nullable=False, index=True)
     created_by = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(UTC))
-    updated_at = Column(DateTime, default=datetime.now(UTC))
+    updated_at = Column(
+        DateTime,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC)
+    )
