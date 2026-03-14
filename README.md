@@ -1,25 +1,38 @@
+# TaskBoard --- B2B SaaS Task Management Platform
+
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![React](https://img.shields.io/badge/React-Frontend-blue)
 ![Clerk](https://img.shields.io/badge/Auth-Clerk-purple)
-![License](https://img.shields.io/badge/license-MIT-green)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-success)
+![License](https://img.shields.io/badge/license-MIT-green) ![Backend
+Tests](https://github.com/ricothenfx/b2b-saas-taskboard/actions/workflows/backend-tests.yml/badge.svg)
 
-# TaskBoard --- B2B SaaS Task Management Platform
+A **full-stack B2B SaaS task management platform** built with modern
+backend architecture.
 
-A **full‑stack B2B SaaS application** that allows organizations to
-manage team tasks using a Kanban board system with **multi‑tenant
-architecture**, **role‑based access control**, and **subscription‑based
-feature limits**.
+The application allows organizations to manage team tasks using a
+**Kanban board system** with **multi-tenant architecture**, **role-based
+access control**, and **subscription-based feature limits**.
 
-This project demonstrates production‑style SaaS architecture using
-**FastAPI**, **React**, **Clerk authentication**, and **webhook
-automation**.
+This project demonstrates production-style SaaS architecture using:
+
+-   FastAPI backend
+-   React frontend
+-   Clerk authentication
+-   PostgreSQL (Neon serverless database)
+-   Webhook automation
+-   Automated CI testing
 
 ------------------------------------------------------------------------
 
 ## 🚀 Live Demo
 
-Frontend: (add your deployed frontend URL)\
-API Docs: (add your deployed backend URL)/docs
+Frontend:  
+🔗 https://b2b-saas-taskboard.vercel.app/
+
+API Docs (Swagger UI):  
+🔗 https://b2b-saas-taskboard.onrender.com/docs
 
 ------------------------------------------------------------------------
 
@@ -29,20 +42,21 @@ Many teams need a lightweight task management system that supports:
 
 -   Multiple organizations
 -   Team collaboration
--   Role‑based permissions
--   Scalable SaaS billing architecture
+-   Role-based permissions
+-   SaaS-style subscription limits
+-   Scalable backend architecture
 
-This project implements those concepts in a modern **SaaS‑style backend
-architecture**.
+This project implements those concepts using a **modern SaaS backend
+design**.
 
 ------------------------------------------------------------------------
 
 ## ✨ Features
 
-### Multi‑Tenant Architecture
+### Multi-Tenant Architecture
 
 -   Each organization has isolated tasks and members
--   Secure organization‑based access control
+-   Secure organization-based access control
 
 ### Authentication & Authorization
 
@@ -54,46 +68,57 @@ architecture**.
 
 -   Kanban board interface
 -   Create / update / delete tasks
--   Status workflow (Pending → Started → Completed)
+-   Task workflow:
+
+```{=html}
+<!-- -->
+```
+    Pending → Started → Completed
 
 ### Team Collaboration
 
 -   Invite members to organizations
--   Role‑based permissions (Admin / Editor / Member)
+-   Role-based permissions (Admin / Editor / Member)
 
 ### SaaS Subscription Logic
 
--   Free tier membership limits
+-   Free tier member limits
 -   Pro tier unlimited members
 -   Billing event automation
 
 ### Webhook Automation
 
 -   Clerk webhook integration
--   Subscription updates automatically change organization limits
+-   Subscription events automatically update organization limits
 
 ------------------------------------------------------------------------
 
 ## 🏗 Architecture
 
-The application follows a **layered backend architecture**:
-
     Backend (FastAPI)
+
+    API Layer
     │
-    ├── API Layer
-    │   Handles HTTP endpoints and request validation
+    ├── Handles HTTP endpoints
+    ├── Request validation
     │
-    ├── Core Layer
-    │   Authentication, configuration, database setup
+    Core Layer
     │
-    ├── Models
-    │   SQLAlchemy database models
+    ├── Authentication
+    ├── Configuration
+    ├── Database connection
     │
-    ├── Schemas
-    │   Pydantic request/response validation
+    Models
     │
-    └── Services / Logic
-        Business logic for tasks and organization limits
+    ├── SQLAlchemy database models
+    │
+    Schemas
+    │
+    ├── Pydantic request/response models
+    │
+    Services / Business Logic
+    │
+    └── Task management & SaaS rules
 
 ------------------------------------------------------------------------
 
@@ -106,6 +131,7 @@ The application follows a **layered backend architecture**:
 -   Pydantic
 -   Clerk Python SDK
 -   Svix Webhooks
+-   pytest (unit testing)
 
 ### Frontend
 
@@ -115,16 +141,33 @@ The application follows a **layered backend architecture**:
 
 ### Infrastructure
 
--   Clerk Authentication
--   Webhooks
--   SQLite (development)
--   PostgreSQL ready (production)
+-   PostgreSQL (Neon serverless database)
+-   SQLite (local development)
+-   GitHub Actions (CI pipeline)
+-   uv (fast Python package manager)
+
+------------------------------------------------------------------------
+
+## 🧪 Automated Testing
+
+The backend includes **unit tests with pytest**.
+
+Tests automatically run in **GitHub Actions CI** on every push.
+
+Current test coverage:
+
+    ~74%
+
+Run tests locally:
+
+    cd backend
+    uv run pytest --cov=app
 
 ------------------------------------------------------------------------
 
 ## 📂 Project Structure
 
-    taskboard-saas
+    b2b-saas-taskboard
     │
     ├── backend
     │   ├── app
@@ -134,7 +177,13 @@ The application follows a **layered backend architecture**:
     │   │   ├── schemas
     │   │   └── main.py
     │   │
-    │   ├── requirements.txt
+    │   ├── tests
+    │   │   ├── test_tasks.py
+    │   │   ├── test_auth.py
+    │   │   ├── test_webhooks.py
+    │   │   └── test_database.py
+    │   │
+    │   ├── pyproject.toml
     │   └── start.py
     │
     ├── frontend
@@ -148,20 +197,29 @@ The application follows a **layered backend architecture**:
 
 ## ⚙️ Running Locally
 
-### 1️⃣ Clone Repository
+### Clone Repository
 
-    git clone https://github.com/YOUR_USERNAME/taskboard-saas.git
-    cd taskboard-saas
+    git clone https://github.com/ricothenfx/b2b-saas-taskboard.git
+    cd b2b-saas-taskboard
 
 ------------------------------------------------------------------------
 
-### 2️⃣ Start Backend
+### Start Backend
+
+Install dependencies:
 
     cd backend
-    pip install -r requirements.txt
-    uvicorn app.main:app --reload
+    uv sync
 
-Backend runs at:
+Run server:
+
+    uv run start.py
+
+Or:
+
+    uv run uvicorn app.main:app --reload
+
+Backend:
 
     http://localhost:8000
 
@@ -171,13 +229,13 @@ API docs:
 
 ------------------------------------------------------------------------
 
-### 3️⃣ Start Frontend
+### Start Frontend
 
     cd frontend
     npm install
     npm run dev
 
-Frontend runs at:
+Frontend:
 
     http://localhost:5173
 
@@ -185,16 +243,20 @@ Frontend runs at:
 
 ## 🔐 Environment Variables
 
-Example backend `.env`:
+Example `.env`:
 
     CLERK_SECRET_KEY=
     CLERK_PUBLISHABLE_KEY=
     CLERK_JWKS_URL=
     CLERK_WEBHOOK_SECRET=
 
-    DATABASE_URL=sqlite:///./taskboard.db
+    DATABASE_URL=postgresql://user:password@host/db
 
     FRONTEND_URL=http://localhost:5173
+
+For local development:
+
+    DATABASE_URL=sqlite:///./taskboard.db
 
 ------------------------------------------------------------------------
 
@@ -206,55 +268,20 @@ Clerk sends subscription events to:
 
 These events automatically:
 
--   Detect subscription changes
--   Update organization member limits
--   Enable Pro tier functionality
-
-------------------------------------------------------------------------
-
-## 🧪 Example API Endpoints
-
-### Get Tasks
-
-    GET /api/tasks
-
-### Create Task
-
-    POST /api/tasks
-
-### Update Task
-
-    PATCH /api/tasks/{task_id}
-
-### Delete Task
-
-    DELETE /api/tasks/{task_id}
+-   detect subscription changes
+-   update organization member limits
+-   enable Pro tier functionality
 
 ------------------------------------------------------------------------
 
 ## 📊 SaaS Concepts Demonstrated
 
-This project showcases several important SaaS engineering concepts:
-
--   Multi‑tenant architecture
--   Role‑based access control
--   Subscription‑based feature gating
--   Webhook‑driven automation
+-   Multi-tenant architecture
+-   Role-based access control
+-   Subscription-based feature gating
+-   Webhook-driven automation
 -   Backend API design with FastAPI
--   Modern authentication integration
-
-------------------------------------------------------------------------
-
-## 📸 Screenshots
-
-(Add screenshots here once deployed)
-
-Suggested screenshots:
-
--   Dashboard
--   Kanban board
--   Organization members
--   Subscription upgrade flow
+-   CI/CD automated testing
 
 ------------------------------------------------------------------------
 
@@ -262,8 +289,6 @@ Suggested screenshots:
 
 Built as a portfolio project demonstrating **modern SaaS backend
 architecture**.
-
-If you found this project interesting, feel free to connect.
 
 ------------------------------------------------------------------------
 
